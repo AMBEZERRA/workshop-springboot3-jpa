@@ -1,11 +1,16 @@
 package com.aulaSpringBoot.course.resources;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aulaSpringBoot.course.entities.User;
+import com.aulaSpringBoot.course.services.UserService;
 // Essa classe vai disponibilizar para mim um recurso web correspondente a entidade User
 
 
@@ -16,10 +21,23 @@ public class UserResource {
 	
 	// criar um metodo pra receber resposta da requisição web endpoint pra acessar usuario 	
 	// contrlolador de site que responde no caminho users 
+	
+	
+	@Autowired
+	private UserService service;
+	
 	@GetMapping
-	public ResponseEntity<User> findAll(){
-		User u = new User(1L, "Maria", "maria@.com", "99999999", "123456");
-		return ResponseEntity.ok().body(u);
+	public ResponseEntity<List<User>> findAll(){
+		List<User> list = service.findAll();
+		return ResponseEntity.ok().body(list);
 		
 	}
+	
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<User> findById(@PathVariable Long id){
+		User obj = service.findById(id);
+		return ResponseEntity.ok().body(obj);
+	}
+	
+	
 }
