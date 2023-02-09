@@ -3,11 +3,21 @@ package com.aulaSpringBoot.course.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+//  Agora temos que implementar as anotações do JPA.. para ele relacionar a entidade no modelo relacional
+
+@Entity
+@Table(name = "tb_user") // renomei o nome da tabela user
 public class User implements Serializable {
 	// por ser a primeira classe ainda não temos asssociaçõe 
 	
 	private static final long serialVersionUID = 1L;
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private String email;
@@ -99,10 +109,6 @@ public class User implements Serializable {
 	}
 
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", phone=" + phone + "]";
-	}
 	
 	 
 }
